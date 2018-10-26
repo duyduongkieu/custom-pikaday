@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <link rel="stylesheet" href="./css/pikaday.css">
+        <link rel="stylesheet" href="./css/site.css">
+    </head>
+    <body>
+
+        <!-- ............................................. -->
+        <h1>chon ngay</h1>
+        <div class="d-flex">
+            <input type="text" class="form-control datepicker" name=""
+                id="startDate">
+            <input type="text" class="form-control datepicker" name=""
+                id="endDate">
+        </div>
+
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="./moment.js"></script>
+        <script src="./pikaday.js"></script>
+        <script src="./main.js"></script>
+        <script>
+  
+        //  ...................
+            var picker = new Pikaday({
+                field : document.getElementById("startDate"),
+                minDate  : new Date(),
+                // setDefaultDate : true,
+                format: 'DD/MM/YYYY',   
+            });
+           
+            $(document).ready(function(){
+                $('#endDate').on('focus',function(){
+                // if ($(this).val().length === 10) {
+                var dateIp = $('#startDate').val();  
+                console.log(dateIp)
+                var arraySt = dateIp.split('/');
+                
+                var array = arraySt.map(x => +x);
+                console.log(array);
+                var n = new Date(array[2], array[1], array[0] + 1);
+                console.log(n);
+
+                // var nd = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+                // ......
+                var picker = new Pikaday({
+                    field : document.getElementById("endDate"),
+                    minDate  : new Date(array[2], array[1] - 1 , array[0] + 1),
+                    format: 'DD/MM/YYYY',   
+                });
+        //  }
+            })
+                
+            })
+            
+        //  .............
+        $(document).ready(function(event){
+
+            // ...
+            var Ip = $('.datepicker');
+         
+            //tab vs blur
+            Ip.on('keypress',function(e){
+               if((Ip.val().length + 1) == 8 || (Ip.val().length + 1) == 7) {
+                    Ip.on('blur',function() {
+                    var valueIp = Ip.val();
+                    var date = new Date();
+                    var str = valueIp.substring(4,8);
+                    var numb = parseInt(str);
+                    if(numb < 1930){
+                        Ip.val('');
+                    }
+                    
+                })
+               }
+         
+               // enter
+                if(e.which == 13){
+                     if( Ip.val().length == 7){
+					    Ip.val('');
+                     } else if(Ip.val().length == 8){
+                         console.log(Ip.val().length);
+                         var valueIp = Ip.val();
+                         var date = new Date();
+                         var str = valueIp.substring(4,8);
+                         var numb = parseInt(str);
+                         if(numb < 1930){
+                            // Ip.val(date.getDate());
+                            Ip.val(''); 
+                         }
+                     }
+                }
+            })   
+         
+         })
+    </script>
+    </body>
+</html>
