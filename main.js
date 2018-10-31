@@ -22,27 +22,12 @@ $(document).ready(function() {
     if (n != 'Invalid Date') {
       pickerED.setMinDate(n);
     }
-
-    //  }
   });
   // ...............................fix pikaday smart................................
-  // ...
   var Ip = $('.datepicker');
 
-  //tab vs blur
   Ip.on('keypress', function(e) {
-    if (Ip.val().length + 1 == 8 || Ip.val().length + 1 == 7) {
-      Ip.on('blur', function() {
-        var valueIp = Ip.val();
-        // var date = new Date();
-        var str = valueIp.substring(4, 8);
-        var numb = parseInt(str);
-        if (numb < 1930) {
-          Ip.val('');
-        }
-      });
-    }
-
+    console.log(Ip.val().length);
     // enter
     if (e.which == 13) {
       if (Ip.val().length == 7) {
@@ -50,14 +35,25 @@ $(document).ready(function() {
       } else if (Ip.val().length == 8) {
         console.log(Ip.val().length);
         var valueIp = Ip.val();
-        var date = new Date();
         var str = valueIp.substring(4, 8);
-        var numb = parseInt(str);
-        if (numb < 1930) {
+        console.log(str);
+        if (str < 1930) {
           // Ip.val(date.getDate());
           Ip.val('');
         }
       }
+    }
+    // ........tab and blur
+    if (Ip.val().length + 1 == 8 || Ip.val().length + 1 == 7) {
+      Ip.on('blur', function() {
+        var valueIp = Ip.val();
+        console.log(valueIp);
+        var str = valueIp.substring(6, 10);
+        console.log(str);
+        if (str < 1930) {
+          Ip.val('');
+        }
+      });
     }
   });
 });
